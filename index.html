@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Weapons</title>
+    <style>
+*{
+    font-family: 'Heebo', sans-serif;
+    user-select: none;
+    -webkit-user-select: none; /* 兼容 WebKit 浏览器 */
+    -moz-user-select: none; /* 兼容 Firefox 浏览器 */
+    -ms-user-select: none; /* 兼容 IE/Edge 浏览器 */
+}
+html {    
+    padding: 10px;
+    margin: 0;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    font-size: 125%;
+    background-color: #252525;
+}
+body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+a {
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+}
+button {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+header {
+    width: calc(100% - 20px);
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+}
+main {
+    width: 100%;
+    height: 100%;
+    background-color: #DADADA;
+    padding-top: 103px;
+    box-sizing: border-box;
+    display: flex;
+}
+iframe {
+    width: 100%;
+    height: 100%;
+}
+.toggle {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: #252525 2px solid;
+}
+.title-span {
+    color: #252525;
+    font-size: 38px;
+}
+.toggle>.left, .toggle>.right {
+    width: 100%;
+}
+.toggle>.left img {
+    width: 64px;
+    height: 64px;
+}
+.toggle>.right {
+    display: flex;
+    justify-content: flex-end;
+}
+.search-bar {
+    width: 160px;
+    position: relative;
+}
+#menuSearch {
+    display: none;
+    position: relative;
+}
+.search-bar input, #menuSearch input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.search-bar img, #menuSearch img {
+    width: 32px;
+    height: 32px;
+}
+.search-bar button, #menuSearch button {
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    transform: translate(0%, -50%);
+    height: 32px;
+    width: 32px;
+    padding: 0;
+}
+#menuBtn {
+    display: none;
+    width: 48px;
+    height: 48px;
+}
+#menuBtn img {
+    width: 36px;
+    height: 36px;
+}
+#menuBtn.click {
+    background-color: gray;
+}
+
+#menuUl {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+#menuUl li {
+    display: inline;
+    margin: 0 10px;
+}
+#menuUl button {
+    color: #fff;
+    padding: 10px;
+}
+#menuUl button:hover {
+    color: #252525;
+}
+
+.steam-widget-wrap {
+    width: calc( 100% - 360px);
+}
+.twitter-widget-wrap {
+    width: 360px;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 100%;
+    }
+    main {
+        padding-top: 64px;
+        flex-direction: column;
+    }
+    #menuBtn, #menuUl.straight, #menuSearch.straight {
+        display: block;
+    }
+    .toggle .search-bar {
+        display: none;
+    }
+
+    #menuUl {
+        display: none;
+        margin: 10px 0px;
+    }
+    #menuUl li {
+        margin: 2px;
+        display: block;
+        border: #252525 2px solid;
+    }
+    #menuUl button {
+        width: 100%;
+    }
+
+    .steam-widget-wrap, .twitter-widget-wrap {
+        width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="toggle">
+            <div class="left">
+                <a href=""><img src="img/apex-light-hero-logo.png" alt="Apex Legends"></a>
+            </div>
+            <a href="index.html" class="title-span">Welcome</a>
+            <div class="right">
+                <div class="search-bar">
+                    <input id="searchBarInput" type="text" placeholder="Search">
+                    <button id="searchBarSearch"><img src="img/search.png" alt="search"></button>
+                </div>
+                <button id="menuBtn"><img src="img/menu-burger.png" alt="menu-btn"></button>
+            </div>
+        </div>
+        
+        <div id="menuSearch">
+            <input id="menuSearchInput" type="text" placeholder="Search">
+            <button id="menuSearchSearch"><img src="img/search.png" alt="search"></button>
+        </div>
+
+        <nav>
+            <ul id="menuUl">
+                <li><button onclick="">Weapons</button></li>
+                <li><button onclick="">Attachments</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="steam-widget-wrap">
+            <iframe src="https://store.steampowered.com/widget/1172470/" frameborder="0"></iframe>
+        </div>
+        <div class="twitter-widget-wrap">
+            <div id="twitter-widget-holder">
+                <div class="twitter-timeline twitter-timeline-rendered" style="display: flex; width: 100%; max-width: 100%; margin-top: 0px; margin-bottom: 0px;"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" class="" style="position: static; visibility: visible; width: 258px; height: 9799px; display: block; flex-grow: 1;" title="Twitter Timeline" src="https://syndication.twitter.com/srv/timeline-profile/screen-name/PlayApex?dnt=false&amp;embedId=twitter-widget-0&amp;features=eyJ0ZndfdGltZWxpbmVfbGlzdCI6eyJidWNrZXQiOltdLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X2ZvbGxvd2VyX2NvdW50X3N1bnNldCI6eyJidWNrZXQiOnRydWUsInZlcnNpb24iOm51bGx9LCJ0ZndfdHdlZXRfZWRpdF9iYWNrZW5kIjp7ImJ1Y2tldCI6Im9uIiwidmVyc2lvbiI6bnVsbH0sInRmd19yZWZzcmNfc2Vzc2lvbiI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfZm9zbnJfc29mdF9pbnRlcnZlbnRpb25zX2VuYWJsZWQiOnsiYnVja2V0Ijoib24iLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X21peGVkX21lZGlhXzE1ODk3Ijp7ImJ1Y2tldCI6InRyZWF0bWVudCIsInZlcnNpb24iOm51bGx9LCJ0ZndfZXhwZXJpbWVudHNfY29va2llX2V4cGlyYXRpb24iOnsiYnVja2V0IjoxMjA5NjAwLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X3Nob3dfYmlyZHdhdGNoX3Bpdm90c19lbmFibGVkIjp7ImJ1Y2tldCI6Im9uIiwidmVyc2lvbiI6bnVsbH0sInRmd19kdXBsaWNhdGVfc2NyaWJlc190b19zZXR0aW5ncyI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfdXNlX3Byb2ZpbGVfaW1hZ2Vfc2hhcGVfZW5hYmxlZCI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfdmlkZW9faGxzX2R5bmFtaWNfbWFuaWZlc3RzXzE1MDgyIjp7ImJ1Y2tldCI6InRydWVfYml0cmF0ZSIsInZlcnNpb24iOm51bGx9LCJ0ZndfbGVnYWN5X3RpbWVsaW5lX3N1bnNldCI6eyJidWNrZXQiOnRydWUsInZlcnNpb24iOm51bGx9LCJ0ZndfdHdlZXRfZWRpdF9mcm9udGVuZCI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9fQ%3D%3D&amp;frame=false&amp;hideBorder=true&amp;hideFooter=true&amp;hideHeader=true&amp;hideScrollBar=false&amp;lang=ja&amp;origin=https%3A%2F%2Fpriconne-redive.jp%2F&amp;sessionId=8867112ed7d2bfddf817b7c608e76dd35ade246a&amp;showHeader=false&amp;showReplies=false&amp;transparent=true&amp;widgetsVersion=01917f4d1d4cb%3A1696883169554"></iframe></div>
+                <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+    </main>
+    <!--
+        <footer style="text-align:center;padding:10px;background-color:#333;color:#fff;">
+            <p>&copy; 2024 APEX Weapons. 版權所有。</p>
+        </footer>
+    -->
+    <script>
+menuBtn.onclick = function () {
+    if (menuBtn.classList.contains('click')) {
+        menuBtn.classList.remove('click');
+        menuUl.classList.remove('straight');
+        menuSearch.classList.remove('straight');
+    } else {
+        menuBtn.classList.add('click');
+        menuUl.classList.add('straight');
+        menuSearch.classList.add('straight');
+    }
+}
+    </script>
+</body>
+</html>
