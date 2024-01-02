@@ -1,0 +1,39 @@
+main {
+    display: flex;
+    flex-direction: column;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.weapon-left, .weapon-right{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.weapon-left select, .weapon-right select {
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+.weapon-left img, .weapon-right img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.weapon-left td{
+    color: #666;
+    text-align: right;
+}
+.weapon-right td{
+    color: #666;
+    text-align: left;
+}

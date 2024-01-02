@@ -1,0 +1,12 @@
+.steam-widget-wrap {
+    width: calc( 100% - 360px);
+}
+.twitter-widget-wrap {
+    width: 360px;
+    overflow-y: auto;
+}
+@media (max-width: 768px) {
+    .steam-widget-wrap, .twitter-widget-wrap {
+        width: 100%;
+    }
+}
