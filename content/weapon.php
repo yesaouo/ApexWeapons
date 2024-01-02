@@ -20,7 +20,7 @@ $query = $db->query($sql);
 //$stmt =  $db->prepare($query);
 $result = $query->fetchAll();//以上寫法是為了防止「sql injection」
 ?>
-<form action="damn.php" method="post">
+<form action="weapon_compare.php" method="post">
 <?php
 for($i=0; $i<count($result); $i++){
         echo "<tr>";
