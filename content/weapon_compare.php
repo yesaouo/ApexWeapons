@@ -40,79 +40,53 @@
     </header>
     <main>
         <div class="row">
-            <?php/*
-				$sql = "SELECT COUNT(*) FROM toy WHERE AreaCode = '201609260001'";
-				$stmt =  $db->prepare($sql);
-				$error = $stmt->execute();
-				
-				if($rowcount = $stmt->fetchColumn())
-					echo $rowcount;*/
-			?>
-
-
             <div class="weapon-left">
                 <select>
-                <?php/*
-                    if (!empty($_POST["ToyID"])) {
-                        $sql = "SELECT image FROM images WHERE id = :id";
-                        $stmt = $db->prepare($sql);
-
-                        // 綁定id參數到你想要取得的圖片
-                        $stmt->bindParam(':id', $id);
-                        $stmt->execute();
-
-                        // 取得圖片資料
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                        // 確保圖片資料不為空
-                        if($row !== false) {
-                            // 設定正確的Content-Type header
-                            header("Content-Type: image/jpeg");
-
-                            // 輸出圖片資料
-                            echo $row['image'];
-                        }
-                    }
-                    echo '<option value="'.$_POST['Weapon1'].'">'.$_POST['Weapon1'].'</option>';*/
-                ?>
                 <?php
+                    if (!empty($_POST["weapon1"])) {
+                        $sql1 = "SELECT WeaponName FROM Weapon WHERE WeaponName = :weapon1";
+                        $stmt1 = $db->prepare($sql1);
+                        $stmt1->bindParam(':weapon1', $_POST["weapon1"]);
+                        $stmt1->execute();
+                        $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+                        if($row1 !== false)
+                            echo "<option value=\"{$_POST['weapon1']}\">{$_POST['weapon1']}</option>";
+                    }
                     $sql = "SELECT WeaponName FROM Weapon";
 					if ($stmt = $db->prepare($sql)) {
 						$stmt->execute();
 						for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
-                            if ($rows[$count]['WeaponName'] != '')
-                                echo "<option value=\"{$rows[$count]["WeaponName"]}\">{$rows[$count]["WeaponName"]}</option>";
+                            if ($rows[$count]['WeaponName'] != $_POST['weapon1'])
+                                echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
                     }
                 ?>
                 </select>
-
                 <?php
-                    $sql = "SELECT * FROM Weapon WHERE WeaponName = 'R-99 SMG'";
-                    $stmt = $db->prepare($sql);
-                    $stmt->execute();
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    if($row !== false) {
-                        $w_sql = "SELECT Value FROM white_attachment WHERE WeaponName = 'R-99 SMG' and AttachmentName like 'Extended%Mag'";
+                    if(isset($row1) && $row1 !== false) {
+                        $w_sql = "SELECT Value FROM white_attachment WHERE WeaponName = :weapon1 and AttachmentName like 'Extended%Mag'";
                         $w_stmt = $db->prepare($w_sql);
+                        $w_stmt->bindParam(':weapon1', $_POST["weapon1"]);
                         $w_stmt->execute();
                         $w_row = $w_stmt->fetch(PDO::FETCH_ASSOC);
-                        $b_sql = "SELECT Value FROM white_attachment WHERE WeaponName = 'R-99 SMG' and AttachmentName like 'Extended%Mag'";
+                        $b_sql = "SELECT Value FROM blue_attachment WHERE WeaponName = :weapon1 and AttachmentName like 'Extended%Mag'";
                         $b_stmt = $db->prepare($b_sql);
+                        $b_stmt->bindParam(':weapon1', $_POST["weapon1"]);
                         $b_stmt->execute();
                         $b_row = $b_stmt->fetch(PDO::FETCH_ASSOC);
-                        $p_sql = "SELECT Value FROM white_attachment WHERE WeaponName = 'R-99 SMG' and AttachmentName like 'Extended%Mag'";
+                        $p_sql = "SELECT Value FROM purple_attachment WHERE WeaponName = :weapon1 and AttachmentName like 'Extended%Mag'";
                         $p_stmt = $db->prepare($p_sql);
+                        $p_stmt->bindParam(':weapon1', $_POST["weapon1"]);
                         $p_stmt->execute();
                         $p_row = $p_stmt->fetch(PDO::FETCH_ASSOC);
                 ?>
-                        <img src="get_weapon_image.php?name=<?php echo $row['WeaponName'];?>" alt="<?php echo $row['WeaponName'];?>">
+                        <img src="get_weapon_image.php?name=<?php echo $row1['WeaponName'];?>" alt="<?php echo $row1['WeaponName'];?>">
                         <table>
-                            <tr><td><?php echo $row['WeaponName'];?></td></tr>
-                            <tr><td><?php echo $row['Type'];?></td></tr>
-                            <tr><td><?php echo $row['Ammo'];?></td></tr>
-                            <tr><td><?php echo "{$row['Body']}/{$row['Head']}/{$row['Legs']}";?></td></tr>
-                            <tr><td><?php echo "{$row['Magazine']}/{$w_row['Value']}/{$b_row['Value']}/{$p_row['Value']}";?></td></tr>
-                            <tr><td><?php echo round($row['ReloadTime']*1, 2) . "/" . round($row['ReloadTime']*0.967, 2) . "/" . round($row['ReloadTime']*0.937, 2) . "/" . round($row['ReloadTime']*0.9, 2);?></td></tr>
+                            <tr><td><?php echo $row1['WeaponName'];?></td></tr>
+                            <tr><td><?php echo $row1['Type'];?></td></tr>
+                            <tr><td><?php echo $row1['Ammo'];?></td></tr>
+                            <tr><td><?php echo "{$row1['Head']}/{$row1['Body']}/{$row1['Legs']}";?></td></tr>
+                            <tr><td><?php echo "{$row1['Magazine']}/{$w_row['Value']}/{$b_row['Value']}/{$p_row['Value']}";?></td></tr>
+                            <tr><td><?php echo round($row1['ReloadTime']*1, 2) . "/" . round($row1['ReloadTime']*0.967, 2) . "/" . round($row1['ReloadTime']*0.937, 2) . "/" . round($row1['ReloadTime']*0.9, 2);?></td></tr>
                         </table>
                 <?php
                     }
@@ -120,18 +94,55 @@
             </div>
             <div class="weapon-right">
                 <select>
-                    <option value="object4">Volt SMG</option>
-                    <option value="object5">Object 5</option>
-                    <option value="object6">Object 6</option>
+                <?php
+                    if (!empty($_POST["weapon2"])) {
+                        $sql2 = "SELECT WeaponName FROM Weapon WHERE WeaponName = :weapon2";
+                        $stmt2 = $db->prepare($sql2);
+                        $stmt2->bindParam(':weapon2', $_POST["weapon2"]);
+                        $stmt2->execute();
+                        $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                        if($row2 !== false)
+                            echo "<option value=\"{$_POST['weapon2']}\">{$_POST['weapon2']}</option>";
+                    }
+                    $sql = "SELECT WeaponName FROM Weapon";
+					if ($stmt = $db->prepare($sql)) {
+						$stmt->execute();
+						for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
+                            if ($rows[$count]['WeaponName'] != $_POST['weapon2'])
+                                echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
+                    }
+                ?>
                 </select>
-                <img src="Volt_SMG.png" alt="">
-                <table>
-                    <tr><td>SMG</td></tr>
-                    <tr><td>Energy</td></tr>
-                    <tr><td>19/15/12</td></tr>
-                    <tr><td>19/21/23/26</td></tr>
-                    <tr><td>2.03/1.96/1.89/1.83</td></tr>
-                </table>
+                <?php
+                    if(isset($row2) && $row2 !== false) {
+                        $w_sql = "SELECT Value FROM white_attachment WHERE WeaponName = :weapon2 and AttachmentName like 'Extended%Mag'";
+                        $w_stmt = $db->prepare($w_sql);
+                        $w_stmt->bindParam(':weapon2', $_POST["weapon2"]);
+                        $w_stmt->execute();
+                        $w_row = $w_stmt->fetch(PDO::FETCH_ASSOC);
+                        $b_sql = "SELECT Value FROM blue_attachment WHERE WeaponName = :weapon2 and AttachmentName like 'Extended%Mag'";
+                        $b_stmt = $db->prepare($b_sql);
+                        $b_stmt->bindParam(':weapon2', $_POST["weapon2"]);
+                        $b_stmt->execute();
+                        $b_row = $b_stmt->fetch(PDO::FETCH_ASSOC);
+                        $p_sql = "SELECT Value FROM purple_attachment WHERE WeaponName = :weapon2 and AttachmentName like 'Extended%Mag'";
+                        $p_stmt = $db->prepare($p_sql);
+                        $p_stmt->bindParam(':weapon2', $_POST["weapon2"]);
+                        $p_stmt->execute();
+                        $p_row = $p_stmt->fetch(PDO::FETCH_ASSOC);
+                ?>
+                        <img src="get_weapon_image.php?name=<?php echo $row2['WeaponName'];?>" alt="<?php echo $row2['WeaponName'];?>">
+                        <table>
+                            <tr><td><?php echo $row2['WeaponName'];?></td></tr>
+                            <tr><td><?php echo $row2['Type'];?></td></tr>
+                            <tr><td><?php echo $row2['Ammo'];?></td></tr>
+                            <tr><td><?php echo "{$row2['Head']}/{$row2['Body']}/{$row2['Legs']}";?></td></tr>
+                            <tr><td><?php echo "{$row2['Magazine']}/{$w_row['Value']}/{$b_row['Value']}/{$p_row['Value']}";?></td></tr>
+                            <tr><td><?php echo round($row2['ReloadTime']*1, 2) . "/" . round($row2['ReloadTime']*0.967, 2) . "/" . round($row2['ReloadTime']*0.937, 2) . "/" . round($row2['ReloadTime']*0.9, 2);?></td></tr>
+                        </table>
+                <?php
+                    }
+                ?>
             </div>
         </div>
     </main>
