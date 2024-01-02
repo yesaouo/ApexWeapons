@@ -81,7 +81,7 @@
 						$stmt->execute();
 						for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
                             if ($rows[$count]['WeaponName'] != '')
-                                echo '<option value="'.$rows[$count]["WeaponName"].'">'.$rows[$count]["WeaponName"].'</option>';
+                                echo "<option value=\"{$rows[$count]["WeaponName"]}\">{$rows[$count]["WeaponName"]}</option>";
                     }
                 ?>
                 </select>
@@ -103,7 +103,7 @@
                             <tr><td><?php echo $row['WeaponName'];?></td></tr>
                             <tr><td><?php echo $row['Type'];?></td></tr>
                             <tr><td><?php echo $row['Ammo'];?></td></tr>
-                            <tr><td><?php echo $row['Body']."/".$row['Head']."/".$row['Legs'];?></td></tr>
+                            <tr><td><?php echo "$row['Body']/$row['Head']/$row['Legs']"?></td></tr>
                             <tr><td>17/20/23/26</td></tr>
                             <tr><td>2.45/2.37/2.29/2.21</td></tr>
                         </table>
