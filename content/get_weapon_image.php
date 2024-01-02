@@ -1,7 +1,10 @@
 <?php
 include("../function/condb.php");
 
-// 假設你的圖片儲存在名為Weapon的表格中，並且有一個名為id的欄位來唯一識別每一張圖片
+// 從URL中獲取名稱參數並解碼
+$name = urldecode($_GET['name']);
+
+// 假設你的圖片儲存在名為Weapon的表格中
 $sql = "SELECT Image FROM Weapon WHERE WeaponName = :name";
 $stmt = $db->prepare($sql);
 
