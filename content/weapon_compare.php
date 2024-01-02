@@ -92,20 +92,27 @@
                     $stmt->execute();
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     if($row !== false) {
-                        // 設定正確的Content-Type header
-                        //header("Content-Type: image/jpeg");
-
-                        // 輸出圖片資料
-                        //echo $row['image'];
+                        $w_sql = "SELECT Value FROM white_attachment WHERE WeaponName = 'R-99 SMG' and AttachmentName like 'Extended%Mag'";
+                        $w_stmt = $db->prepare($w_sql);
+                        $w_stmt->execute();
+                        $w_row = $w_stmt->fetch(PDO::FETCH_ASSOC);
+                        $b_sql = "SELECT Value FROM white_attachment WHERE WeaponName = 'R-99 SMG' and AttachmentName like 'Extended%Mag'";
+                        $b_stmt = $db->prepare($b_sql);
+                        $b_stmt->execute();
+                        $b_row = $b_stmt->fetch(PDO::FETCH_ASSOC);
+                        $p_sql = "SELECT Value FROM white_attachment WHERE WeaponName = 'R-99 SMG' and AttachmentName like 'Extended%Mag'";
+                        $p_stmt = $db->prepare($p_sql);
+                        $p_stmt->execute();
+                        $p_row = $p_stmt->fetch(PDO::FETCH_ASSOC);
                 ?>
                         <img src="get_weapon_image.php?name=<?php echo $row['WeaponName'];?>" alt="<?php echo $row['WeaponName'];?>">
                         <table>
                             <tr><td><?php echo $row['WeaponName'];?></td></tr>
                             <tr><td><?php echo $row['Type'];?></td></tr>
                             <tr><td><?php echo $row['Ammo'];?></td></tr>
-                            <tr><td><?php echo "$row['Body']/$row['Head']/$row['Legs']"?></td></tr>
-                            <tr><td>17/20/23/26</td></tr>
-                            <tr><td>2.45/2.37/2.29/2.21</td></tr>
+                            <tr><td><?php echo "{$row['Body']}/{$row['Head']}/{$row['Legs']}";?></td></tr>
+                            <tr><td><?php echo "{$row['Magazine']}/{$w_row['Value']}/{$b_row['Value']}/{$p_row['Value']}";?></td></tr>
+                            <tr><td><?php echo round($row['ReloadTime']*1, 2) . "/" . round($row['ReloadTime']*0.967, 2) . "/" . round($row['ReloadTime']*0.937, 2) . "/" . round($row['ReloadTime']*0.9, 2);?></td></tr>
                         </table>
                 <?php
                     }
