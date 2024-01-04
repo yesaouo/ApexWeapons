@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX Weapons-Compare</title>
+    <title>APEX Weapons-Comparison</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/compare.css">
 </head>
@@ -14,9 +14,9 @@
     <header>
         <div class="toggle">
             <div class="left">
-                <a href=""><img src="img/apex-light-hero-logo.png" alt="Apex Legends"></a>
+                <a href="../"><img src="img/apex-light-hero-logo.png" alt="Apex Legends"></a>
             </div>
-            <a href="index.html" class="title-span">Welcome</a>
+            <a href="" class="title-span">Comparison</a>
             <div class="right">
                 <div class="search-bar">
                     <input id="searchBarInput" type="text" placeholder="Search">
@@ -33,31 +33,43 @@
 
         <nav>
             <ul id="menuUl">
-                <li><a href="content/weapon.php">Weapons</a></li>
-                <li><a href="content/attachment.php">Attachments</a></li>
+                <li><a href="attachment.php">Attachments</a></li>
+                <li><a href="weapon.php">Weapons</a></li>
+                <li><a href="weapon_compare.php">Comparison</a></li>
+                <li><a href="damage_rank.php">Damage Rank</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="row">
             <div class="weapon-left">
-                <select>
+                <select id="select1" onchange="callPHP()">
                 <?php
-                    if (!empty($_POST["weapon1"])) {
-                        $sql1 = "SELECT WeaponName FROM Weapon WHERE WeaponName = :weapon1";
+                    if (!empty($_GET["weapon1"])) {
+                        $weapon1 = $_GET["weapon1"];
+                        $sql1 = "SELECT * FROM Weapon WHERE WeaponName = :weapon1";
                         $stmt1 = $db->prepare($sql1);
-                        $stmt1->bindParam(':weapon1', $_POST["weapon1"]);
+                        $stmt1->bindParam(':weapon1', $weapon1);
                         $stmt1->execute();
                         $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
                         if($row1 !== false)
-                            echo "<option value=\"{$_POST['weapon1']}\">{$_POST['weapon1']}</option>";
-                    }
-                    $sql = "SELECT WeaponName FROM Weapon";
-					if ($stmt = $db->prepare($sql)) {
-						$stmt->execute();
-						for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
-                            if ($rows[$count]['WeaponName'] != $_POST['weapon1'])
+                            echo "<option value=\"{$weapon1}\">{$weapon1}</option>";
+                
+                        $sql = "SELECT WeaponName FROM Weapon";
+                        if ($stmt = $db->prepare($sql)) {
+                            $stmt->execute();
+                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
+                                if ($rows[$count]['WeaponName'] != $weapon1)
+                                    echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
+                        }
+                    } else {
+                        echo "<option value=\"\">Choose a Weapon</option>";
+                        $sql = "SELECT WeaponName FROM Weapon";
+                        if ($stmt = $db->prepare($sql)) {
+                            $stmt->execute();
+                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
                                 echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
+                        }
                     }
                 ?>
                 </select>
@@ -65,17 +77,17 @@
                     if(isset($row1) && $row1 !== false) {
                         $w_sql = "SELECT Value FROM white_attachment WHERE WeaponName = :weapon1 and AttachmentName like 'Extended%Mag'";
                         $w_stmt = $db->prepare($w_sql);
-                        $w_stmt->bindParam(':weapon1', $_POST["weapon1"]);
+                        $w_stmt->bindParam(':weapon1', $weapon1);
                         $w_stmt->execute();
                         $w_row = $w_stmt->fetch(PDO::FETCH_ASSOC);
                         $b_sql = "SELECT Value FROM blue_attachment WHERE WeaponName = :weapon1 and AttachmentName like 'Extended%Mag'";
                         $b_stmt = $db->prepare($b_sql);
-                        $b_stmt->bindParam(':weapon1', $_POST["weapon1"]);
+                        $b_stmt->bindParam(':weapon1', $weapon1);
                         $b_stmt->execute();
                         $b_row = $b_stmt->fetch(PDO::FETCH_ASSOC);
                         $p_sql = "SELECT Value FROM purple_attachment WHERE WeaponName = :weapon1 and AttachmentName like 'Extended%Mag'";
                         $p_stmt = $db->prepare($p_sql);
-                        $p_stmt->bindParam(':weapon1', $_POST["weapon1"]);
+                        $p_stmt->bindParam(':weapon1', $weapon1);
                         $p_stmt->execute();
                         $p_row = $p_stmt->fetch(PDO::FETCH_ASSOC);
                 ?>
@@ -93,23 +105,33 @@
                 ?>
             </div>
             <div class="weapon-right">
-                <select>
+                <select id="select2" onchange="callPHP()">
                 <?php
-                    if (!empty($_POST["weapon2"])) {
-                        $sql2 = "SELECT WeaponName FROM Weapon WHERE WeaponName = :weapon2";
+                    if (!empty($_GET["weapon2"])) {
+                        $weapon2 = $_GET["weapon2"];
+                        $sql2 = "SELECT * FROM Weapon WHERE WeaponName = :weapon2";
                         $stmt2 = $db->prepare($sql2);
-                        $stmt2->bindParam(':weapon2', $_POST["weapon2"]);
+                        $stmt2->bindParam(':weapon2', $weapon2);
                         $stmt2->execute();
                         $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                         if($row2 !== false)
-                            echo "<option value=\"{$_POST['weapon2']}\">{$_POST['weapon2']}</option>";
-                    }
-                    $sql = "SELECT WeaponName FROM Weapon";
-					if ($stmt = $db->prepare($sql)) {
-						$stmt->execute();
-						for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
-                            if ($rows[$count]['WeaponName'] != $_POST['weapon2'])
+                            echo "<option value=\"{$weapon2}\">{$weapon2}</option>";
+                
+                        $sql = "SELECT WeaponName FROM Weapon";
+                        if ($stmt = $db->prepare($sql)) {
+                            $stmt->execute();
+                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
+                                if ($rows[$count]['WeaponName'] != $weapon2)
+                                    echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
+                        }
+                    } else {
+                        echo "<option value=\"\">Choose a Weapon</option>";
+                        $sql = "SELECT WeaponName FROM Weapon";
+                        if ($stmt = $db->prepare($sql)) {
+                            $stmt->execute();
+                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
                                 echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
+                        }
                     }
                 ?>
                 </select>
@@ -117,17 +139,17 @@
                     if(isset($row2) && $row2 !== false) {
                         $w_sql = "SELECT Value FROM white_attachment WHERE WeaponName = :weapon2 and AttachmentName like 'Extended%Mag'";
                         $w_stmt = $db->prepare($w_sql);
-                        $w_stmt->bindParam(':weapon2', $_POST["weapon2"]);
+                        $w_stmt->bindParam(':weapon2', $weapon2);
                         $w_stmt->execute();
                         $w_row = $w_stmt->fetch(PDO::FETCH_ASSOC);
                         $b_sql = "SELECT Value FROM blue_attachment WHERE WeaponName = :weapon2 and AttachmentName like 'Extended%Mag'";
                         $b_stmt = $db->prepare($b_sql);
-                        $b_stmt->bindParam(':weapon2', $_POST["weapon2"]);
+                        $b_stmt->bindParam(':weapon2', $weapon2);
                         $b_stmt->execute();
                         $b_row = $b_stmt->fetch(PDO::FETCH_ASSOC);
                         $p_sql = "SELECT Value FROM purple_attachment WHERE WeaponName = :weapon2 and AttachmentName like 'Extended%Mag'";
                         $p_stmt = $db->prepare($p_sql);
-                        $p_stmt->bindParam(':weapon2', $_POST["weapon2"]);
+                        $p_stmt->bindParam(':weapon2', $weapon2);
                         $p_stmt->execute();
                         $p_row = $p_stmt->fetch(PDO::FETCH_ASSOC);
                 ?>
@@ -147,5 +169,33 @@
         </div>
     </main>
     <script src="../js/scripts.js"></script>
+    <script>
+        function callPHP() {
+            const weapon1 = document.getElementById("select1").value;
+            const weapon2 = document.getElementById("select2").value;
+            window.location.href = `?weapon1=${weapon1}&weapon2=${weapon2}`;
+            /*
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                }
+            };
+            xhttp.open("GET", `weapon_compare.php?weapon1=${weapon1}&weapon2=${weapon2}`, true);
+            xhttp.send();
+            */
+            /*
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", 'weapon_compare.php', true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    console.log(this.responseText);
+                }
+            }
+            xhr.send(`weapon1=${weapon1}&weapon2=${weapon2}`);
+            */
+        }
+    </script>
 </body>
 </html>
