@@ -41,6 +41,6 @@ for($i=0; $i<count($result); $i++){
     <input type="submit" value="回傳">
 </form>
 <?php    
-echo "</table>";   
+  echo "</table>"; 
 ?>
 </html>

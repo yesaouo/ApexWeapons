@@ -201,7 +201,7 @@
                             <td><?php echo $rows[$count]['Legs'];?></td> 
                             <td><?php echo $rows[$count]['Magazine'];?></td> 
                             <td><?php echo $rows[$count]['ReloadTime'];?></td> 
-                            <td><?php echo $rows[$count]['Image'];?></td> 
+                            <td><?php #echo $rows[$count]['Image'];?></td> 
                         </tr> 
                     <?php
                             }
@@ -224,9 +224,8 @@
                     <th>裝填時間</th>
                     <th>圖片</th>
                 </tr>  
-                </thead> 
-                <tbody> 
-                    <form action = "weapon_edit.php" method="POST">
+                </thead>  
+                    <form action = "test.php" method="POST">
                     <input type="submit" name = "Update" value = "更新"/>
                     <?php
                         $sql = "SELECT * FROM weapon";
@@ -249,29 +248,37 @@
                             <td><?php# echo $rows[$count]['ReloadTime'];?></td> 
                             <td><?php# echo $rows[$count]['Image'];?></td> 
                         </tr>-->
+                        <tbody>
                         <tr>
-                            <td> <input type = "checkbox" name = "choose[]" value = "<?php echo $rows[$count]['WeaponName'];?>" > </td>
-                            <td> <input type = "search" name = "WeaponName" placeholder = "<?php echo $rows[$count]['WeaponName'];?>"/> </td>
-                            <td> <input type = "search" name = "Type" placeholder = "<?php echo $rows[$count]['Type'];?>"/> </td>
-                            <td> <input type = "search" name = "Ammo" placeholder = "<?php echo $rows[$count]['Ammo'];?>"/> </td>
-                            <td> <input type = "search" name = "Body" placeholder = "<?php echo $rows[$count]['Body'];?>"/> </td>
-                            <td> <input type = "search" name = "Head" placeholder = "<?php echo $rows[$count]['Head'];?>"/> </td>
-                            <td> <input type = "search" name = "Legs" placeholder = "<?php echo $rows[$count]['Legs'];?>"/> </td>
-                            <td> <input type = "search" name = "Magazine" placeholder = "<?php echo $rows[$count]['Magazine'];?>"/> </td>
-                            <td> <input type = "search" name = "ReloadTime" placeholder = "<?php echo $rows[$count]['ReloadTime'];?>"/> </td>
-                            <td> <input type = "search" name = "Image" placeholder = "NAH<?php# echo $rows[$count]['Image'];?>"/> </td>
+                            <td> <input type = "checkbox" name = "choose[]" value = "<?php #echo $rows[$count]['WeaponName'];?>" > </td>
+                            <td> <input type = "text" name = "WeaponName" placeholder = "<?php #echo $rows[$count]['WeaponName'];?>"/> </td>
+                            <td> <input type = "text" name = "Type" placeholder = "<?php #echo $rows[$count]['Type'];?>"/> </td>
+                            <td> <input type = "text" name = "Ammo" placeholder = "<?php #echo $rows[$count]['Ammo'];?>"/> </td>
+                            <td> <input type = "text" name = "Body" placeholder = "<?php #echo $rows[$count]['Body'];?>"/> </td>
+                            <td> <input type = "text" name = "Head" placeholder = "<?php #echo $rows[$count]['Head'];?>"/> </td>
+                            <td> <input type = "text" name = "Legs" placeholder = "<?php #echo $rows[$count]['Legs'];?>"/> </td>
+                            <td> <input type = "text" name = "Magazine" placeholder = "<?php #echo $rows[$count]['Magazine'];?>"/> </td>
+                            <td> <input type = "text" name = "ReloadTime" placeholder = "<?php #echo $rows[$count]['ReloadTime'];?>"/> </td>
+                            <td> <input type = "text" name = "Image" placeholder = "NAH<?php# echo $rows[$count]['Image'];?>"/> </td>
                         </tr>
+                        </tbody>
                     <?php
                             }
                         }
                     ?>
                     </form>
-                </tbody>
             </table>
 
                 <?php
                     #$id = ((int)$_POST["id"]);
                     if(isset($_POST["Insert"])){
+                        if(empty($_POST["WeaponName"]) || empty($_POST["Type"]) || empty($_POST["Ammo"]) || empty($_POST["Body"]) || empty($_POST["Head"]) || empty($_POST["Leg"])|| empty($_POST["Magazine"]) || empty($_POST["ReloadTime"])){
+                            ?>
+                            <script>
+                                alert("少輸入東西");
+                            </script>
+                            <?php
+                        }else{
                         $WeaponName = $_POST["WeaponName"];
                         $Type = $_POST["Type"];
                         $Ammo = $_POST["Ammo"];
@@ -290,6 +297,7 @@
                                 #header('Location: weapon_edit.php');
                             }
                         }
+                      }
                     }else if(isset($_POST["Delete"])){
                         $n = $_POST["choose"];
                         for($i = 0; $i < count($n); $i++){
@@ -309,7 +317,7 @@
                         $sql = "UPDATE weapon SET WeaponName = ?, Type = ?, Ammo = ?, Body = ?, Head = ?, Legs = ?, Magazine = ?, ReloadTime = ?, Image = ? WHERE WeaponName = ?";
                         for($i = 0; $i < count($n); $i++){
                             $WeaponName = $n[$i];
-                            $newWeaponName = $_POST["WeaponName"];# ? $_POST["WeaponName"] : NULL;
+                            $newWeaponName = $_POST['WeaponName'];# ? $_POST["WeaponName"] : NULL;
                             $newType = $_POST["Type"];# ? $_POST["Type"] : NULL;
                             $newAmmo = $_POST["Ammo"];# ? $_POST["Ammo"] : NULL;
                             $newBody = $_POST["Body"];# ? $_POST["Body"] : NULL;
