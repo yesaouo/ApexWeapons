@@ -43,8 +43,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     //檢查帳號是否重複
     $check="SELECT * FROM user WHERE username='".$username."'";
     if(mysqli_num_rows(mysqli_query($conn,$check))==0){
-        $sql="INSERT INTO user (username, password)
-            VALUES('".$username."','".$password."')";
+        $sql="INSERT INTO user (username, password , good)
+            VALUES('".$username."','".$password."','0')";
         
         if(mysqli_query($conn, $sql)){
             echo "註冊成功!3秒後將自動跳轉頁面<br>";
