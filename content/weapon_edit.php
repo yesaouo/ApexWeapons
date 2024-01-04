@@ -85,7 +85,7 @@
 	}
 	
 	.inner_content {
-		padding: 50px 130px 220px 130px;
+		padding: 50px 70px 220px 70px;
 	}
 	
 	.inner_content table {
@@ -104,6 +104,10 @@
 	form {
 		margin-bottom: 0em;
 	}
+
+    .mybar {
+        width:130px;
+    }
   </style>
 </head>
 <body>
@@ -152,24 +156,24 @@
 			    <tbody> 
 				<form action = "weapon_edit.php" method="POST">
 				<tr>
-					<th> <input type = "search" name = "WeaponName"/> </th>
-					<th> <input type = "search" name = "Type"/> </th>
-					<th> <input type = "search" name = "Ammo"/> </th>
-					<th> <input type = "search" name = "Body"/> </th>
-					<th> <input type = "search" name = "Head"/> </th>
-					<th> <input type = "search" name = "Legs"/> </th>
-					<th> <input type = "search" name = "Magazine"/> </th>
-					<th> <input type = "search" name = "ReloadTime"/> </th>
-					<th> Image </th>
+					<th> <input type = "text" name = "InsertWeaponName" class = "mybar" required/> </th>
+					<th> <input type = "text" name = "InsertType" class = "mybar" required/> </th>
+					<th> <input type = "text" name = "InsertAmmo" class = "mybar" required/> </th>
+					<th> <input type = "text" name = "InsertBody" class = "mybar" required/> </th>
+					<th> <input type = "text" name = "InsertHead" class = "mybar" required/> </th>
+					<th> <input type = "text" name = "InsertLegs" class = "mybar" required/> </th>
+					<th> <input type = "text" name = "InsertMagazine" class = "mybar" required/> </th>
+					<th> <input type = "text" name = "InsertReloadTime" class = "mybar" required/> </th>
+					<th> <input type = "file" name = "InsertImage" accept = "image/*"> </th>
 					<input type="submit" name = "Insert" value = "新增" />
 				</tr>
 				</form>
                 </tbody>
             </table>
+            <br><hr><br>
             <table class="table">
                 <thead>
                 <tr> 
-                    <th></th>
                     <th>武器名稱</th> 
                     <th>類型</th> 
                     <th>彈藥</th> 
@@ -181,158 +185,89 @@
                     <th>圖片</th>
                 </tr>  
                 </thead> 
+                    <?php
+                        $sql = "SELECT * FROM weapon";
+                        if($stmt = $db->prepare($sql)){
+                            $stmt->execute();
+                            for($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++){
+                    ?>
                 <tbody> 
                     <form action = "weapon_edit.php" method="POST">
-                    <input type="submit" name = "Delete" value = "刪除"/>
-                    <?php
-                        $sql = "SELECT * FROM weapon";
-                        if($stmt = $db->prepare($sql)){
-                            $stmt->execute();
-                            for($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++){
-                    ?>
                         <tr> 
-                            <!--<th scope="row"><?php# echo $count;?></th> -->
-                            <td><input type = "checkbox" name = "choose[]" value = "<?php echo $rows[$count]['WeaponName'];?>" ></td> 
-                            <td><?php echo $rows[$count]['WeaponName'];?></td> 
-                            <td><?php echo $rows[$count]['Type'];?></td> 
-                            <td><?php echo $rows[$count]['Ammo'];?></td> 
-                            <td><?php echo $rows[$count]['Body'];?></td> 
-                            <td><?php echo $rows[$count]['Head'];?></td> 
-                            <td><?php echo $rows[$count]['Legs'];?></td> 
-                            <td><?php echo $rows[$count]['Magazine'];?></td> 
-                            <td><?php echo $rows[$count]['ReloadTime'];?></td> 
-                            <td><?php #echo $rows[$count]['Image'];?></td> 
+                            <td> <input type = "text" name = "UpdateWeaponName" value = "<?php echo $rows[$count]['WeaponName'];?>" readonly class = "mybar"/> </td>
+                            <td> <input type = "text" name = "UpdateType" value = "<?php echo $rows[$count]['Type'];?>" class = "mybar"/> </td>
+                            <td> <input type = "text" name = "UpdateAmmo" value = "<?php echo $rows[$count]['Ammo'];?>" class = "mybar"/> </td>
+                            <td> <input type = "text" name = "UpdateBody" value = "<?php echo $rows[$count]['Body'];?>" class = "mybar"/> </td>
+                            <td> <input type = "text" name = "UpdateHead" value = "<?php echo $rows[$count]['Head'];?>" class = "mybar"/> </td>
+                            <td> <input type = "text" name = "UpdateLegs" value = "<?php echo $rows[$count]['Legs'];?>" class = "mybar"/> </td>
+                            <td> <input type = "text" name = "UpdateMagazine" value = "<?php echo $rows[$count]['Magazine'];?>" class = "mybar"/> </td>
+                            <td> <input type = "text" name = "UpdateReloadTime" value = "<?php echo $rows[$count]['ReloadTime'];?>" class = "mybar"/> </td>
+                            <td> <img src="get_weapon_image.php?name=<?php echo $rows[$count]['Image'];?>" alt="<?php echo $rows[$count]['WeaponName'];?>"> </td>
+                            <td> <input type = "submit" name = "Update" value = "更新"/> </td>
+                            <td> <input type = "submit" name = "Delete" value = "刪除"/> </td>
                         </tr> 
-                    <?php
-                            }
-                        }
-                    ?>
                     </form>
                 </tbody>
-            </table>
-            <table class="table">
-                <thead>
-                <tr> 
-                    <th></th>
-                    <th>武器名稱</th> 
-                    <th>類型</th> 
-                    <th>彈藥</th> 
-                    <th>身體傷害</th> 
-                    <th>頭部傷害</th> 
-                    <th>腿部傷害</th> 
-                    <th>彈夾容量</th>
-                    <th>裝填時間</th>
-                    <th>圖片</th>
-                </tr>  
-                </thead>  
-                    <form action = "test.php" method="POST">
-                    <input type="submit" name = "Update" value = "更新"/>
-                    <?php
-                        $sql = "SELECT * FROM weapon";
-                        if($stmt = $db->prepare($sql)){
-                            $stmt->execute();
-                            for($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++){
-                    ?>
-                        <!--<tr> 
-                            <th scope="row"><?php# echo $count;?></th>
-                            <td>
-                            <input type = "checkbox" name = "choose[]" value = "<?php# echo $rows[$count]['WeaponName'];?>" >
-                            </td> 
-                            <td><?php# echo $rows[$count]['WeaponName'];?></td> 
-                            <td><?php# echo $rows[$count]['Type'];?></td> 
-                            <td><?php# echo $rows[$count]['Ammo'];?></td> 
-                            <td><?php# echo $rows[$count]['Body'];?></td> 
-                            <td><?php# echo $rows[$count]['Head'];?></td> 
-                            <td><?php# echo $rows[$count]['Legs'];?></td> 
-                            <td><?php# echo $rows[$count]['Magazine'];?></td> 
-                            <td><?php# echo $rows[$count]['ReloadTime'];?></td> 
-                            <td><?php# echo $rows[$count]['Image'];?></td> 
-                        </tr>-->
-                        <tbody>
-                        <tr>
-                            <td> <input type = "checkbox" name = "choose[]" value = "<?php #echo $rows[$count]['WeaponName'];?>" > </td>
-                            <td> <input type = "text" name = "WeaponName" placeholder = "<?php #echo $rows[$count]['WeaponName'];?>"/> </td>
-                            <td> <input type = "text" name = "Type" placeholder = "<?php #echo $rows[$count]['Type'];?>"/> </td>
-                            <td> <input type = "text" name = "Ammo" placeholder = "<?php #echo $rows[$count]['Ammo'];?>"/> </td>
-                            <td> <input type = "text" name = "Body" placeholder = "<?php #echo $rows[$count]['Body'];?>"/> </td>
-                            <td> <input type = "text" name = "Head" placeholder = "<?php #echo $rows[$count]['Head'];?>"/> </td>
-                            <td> <input type = "text" name = "Legs" placeholder = "<?php #echo $rows[$count]['Legs'];?>"/> </td>
-                            <td> <input type = "text" name = "Magazine" placeholder = "<?php #echo $rows[$count]['Magazine'];?>"/> </td>
-                            <td> <input type = "text" name = "ReloadTime" placeholder = "<?php #echo $rows[$count]['ReloadTime'];?>"/> </td>
-                            <td> <input type = "text" name = "Image" placeholder = "NAH<?php# echo $rows[$count]['Image'];?>"/> </td>
-                        </tr>
-                        </tbody>
                     <?php
                             }
                         }
                     ?>
-                    </form>
             </table>
 
                 <?php
                     #$id = ((int)$_POST["id"]);
                     if(isset($_POST["Insert"])){
-                        if(empty($_POST["WeaponName"]) || empty($_POST["Type"]) || empty($_POST["Ammo"]) || empty($_POST["Body"]) || empty($_POST["Head"]) || empty($_POST["Leg"])|| empty($_POST["Magazine"]) || empty($_POST["ReloadTime"])){
-                            ?>
-                            <script>
-                                alert("少輸入東西");
-                            </script>
-                            <?php
-                        }else{
-                        $WeaponName = $_POST["WeaponName"];
-                        $Type = $_POST["Type"];
-                        $Ammo = $_POST["Ammo"];
-                        $Body = $_POST["Body"];
-                        $Head = $_POST["Head"];
-                        $Legs = $_POST["Legs"];
-                        $Magazine = $_POST["Magazine"];
-                        $ReloadTime = $_POST["ReloadTime"];
-                        $Image = "";
-                        $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, Image) values (?,?,?,?,?,?,?,?,NULL)";
+                        $InsertWeaponName = $_POST["InsertWeaponName"];
+                        $InsertType = $_POST["InsertType"];
+                        $InsertAmmo = $_POST["InsertAmmo"];
+                        $InsertBody = $_POST["InsertBody"];
+                        $InsertHead = $_POST["InsertHead"];
+                        $InsertLegs = $_POST["InsertLegs"];
+                        $InsertMagazine = $_POST["InsertMagazine"];
+                        $InsertReloadTime = $_POST["InsertReloadTime"];
+                        $InsertImage = $_POST["InsertImage"];
+                        $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, Image) values (?,?,?,?,?,?,?,?,?)";
                         if($stmt = $db->prepare($sql)){
-                            $success = $stmt->execute(array($WeaponName, $Type, $Ammo, $Body, $Head, $Legs, $Magazine, $ReloadTime));
+                            $success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertImage));
                             if (!$success) {
                                 echo "儲存失敗!".$stmt->errorInfo();
                             }else{
                                 #header('Location: weapon_edit.php');
                             }
                         }
-                      }
                     }else if(isset($_POST["Delete"])){
-                        $n = $_POST["choose"];
-                        for($i = 0; $i < count($n); $i++){
-                            $WeaponName = $n[$i];
-                            $sql = "DELETE FROM weapon WHERE WeaponName = ?";
-                            if($stmt = $db->prepare($sql)){
-                                $success = $stmt->execute(array($WeaponName));
-                                if (!$success) {
-                                    echo "刪除失敗!".$stmt->errorInfo();
-                                }else{
-                                    #header('Location: weapon_edit.php');
-                                }
+                        $WeaponName = $_POST["UpdateWeaponName"];
+                        $sql = "DELETE FROM weapon WHERE WeaponName = ?";
+                        if($stmt = $db->prepare($sql)){
+                            $success = $stmt->execute(array($WeaponName));
+                            if (!$success) {
+                                echo "刪除失敗!".$stmt->errorInfo();
+                            }else{
+                                #header('Location: weapon_edit.php');
                             }
                         }
                     }else if(isset($_POST["Update"])){
-                        $n = $_POST["choose"];
-                        $sql = "UPDATE weapon SET WeaponName = ?, Type = ?, Ammo = ?, Body = ?, Head = ?, Legs = ?, Magazine = ?, ReloadTime = ?, Image = ? WHERE WeaponName = ?";
-                        for($i = 0; $i < count($n); $i++){
-                            $WeaponName = $n[$i];
-                            $newWeaponName = $_POST['WeaponName'];# ? $_POST["WeaponName"] : NULL;
-                            $newType = $_POST["Type"];# ? $_POST["Type"] : NULL;
-                            $newAmmo = $_POST["Ammo"];# ? $_POST["Ammo"] : NULL;
-                            $newBody = $_POST["Body"];# ? $_POST["Body"] : NULL;
-                            $newHead = $_POST["Head"];# ? $_POST["Head"] : NULL;
-                            $newLegs = $_POST["Legs"];# ? $_POST["Legs"] : NULL;
-                            $newMagazine = $_POST["Magazine"];# ? $_POST["Magazine"] : NULL;
-                            $newReloadTime = $_POST["ReloadTime"];# ? $_POST["ReloadTime"] : NULL;
-                            $newImage = NULL;
-                            if($stmt = $db->prepare($sql)){
-                                $success = $stmt->execute(array($newWeaponName, $newType, $newAmmo, $newBody, $newHead, $newLegs, $newMagazine, $newReloadTime, $newImage, $WeaponName));
-                                if (!$success) {
-                                    echo "儲存失敗!".$stmt->errorInfo();
-                                }else{
-                                    #header('Location: weapon_edit.php');
-                                }
+                        $sql = "UPDATE weapon SET Type = ?, Ammo = ?, Body = ?, Head = ?, Legs = ?, Magazine = ?, ReloadTime = ?, Image = ? WHERE WeaponName = ?";
+                        $WeaponName = $_POST["UpdateWeaponName"];
+                        $newType = $_POST["UpdateType"];
+                        if(isset($_POST["UpdateType"]) && !empty($_POST["UpdateType"])){
+                            echo "Success";
+                        }else{
+                            echo "FUCK";
+                        }
+                        $newAmmo = $_POST["UpdateAmmo"];
+                        $newBody = $_POST["UpdateBody"];
+                        $newHead = $_POST["UpdateHead"];
+                        $newLegs = $_POST["UpdateLegs"];
+                        $newMagazine = $_POST["UpdateMagazine"];
+                        $newReloadTime = $_POST["UpdateReloadTime"];
+                        $newImage = NULL;
+                        if($stmt = $db->prepare($sql)){
+                            $success = $stmt->execute(array($newType, $newAmmo, $newBody, $newHead, $newLegs, $newMagazine, $newReloadTime, $newImage, $WeaponName));
+                            if (!$success) {
+                                echo "儲存失敗!".$stmt->errorInfo();
+                            }else{
+                                #header('Location: weapon_edit.php');
                             }
                         }
                     }

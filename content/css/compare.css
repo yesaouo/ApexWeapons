@@ -7,7 +7,7 @@ main {
     flex-direction: row;
 }
 .weapon-left, .weapon-right{
-    width: 100%;
+    width: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -36,4 +36,10 @@ main {
 .weapon-right td{
     color: #666;
     text-align: left;
+}
+
+@media (max-width: 768px) {
+    .row {
+        display: block;
+    }
 }
