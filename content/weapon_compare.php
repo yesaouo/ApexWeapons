@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX Weapons-Compare</title>
+    <title>APEX Weapons-Comparison</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/compare.css">
 </head>
@@ -14,9 +14,9 @@
     <header>
         <div class="toggle">
             <div class="left">
-                <a href=""><img src="img/apex-light-hero-logo.png" alt="Apex Legends"></a>
+                <a href="../"><img src="img/apex-light-hero-logo.png" alt="Apex Legends"></a>
             </div>
-            <a href="index.html" class="title-span">Welcome</a>
+            <a href="" class="title-span">Comparison</a>
             <div class="right">
                 <div class="search-bar">
                     <input id="searchBarInput" type="text" placeholder="Search">
