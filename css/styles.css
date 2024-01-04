@@ -59,6 +59,7 @@ iframe {
 .title-span {
     color: #252525;
     font-size: 36px;
+    white-space: nowrap;
 }
 .toggle>.left, .toggle>.right {
     width: 100%;

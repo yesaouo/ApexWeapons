@@ -33,9 +33,10 @@
 
         <nav>
             <ul id="menuUl">
-                <li><a href="weapon.php">Weapons</a></li>
                 <li><a href="attachment.php">Attachments</a></li>
+                <li><a href="weapon.php">Weapons</a></li>
                 <li><a href="weapon_compare.php">Comparison</a></li>
+                <li><a href="damage_rank.php">Damage Rank</a></li>
             </ul>
         </nav>
     </header>
