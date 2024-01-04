@@ -44,6 +44,16 @@
         <div class="row">
             <div class="weapon-left">
                 <select id="select1" onchange="callPHP()">
+                    <option value="">Choose a Weapon</option>
+                    <?php
+                        $sql = "SELECT WeaponName FROM Weapon";
+                        if ($stmt = $db->prepare($sql)) {
+                            $stmt->execute();
+                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
+                                echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
+                        }
+                    ?>
+                </select>
                 <?php
                     if (!empty($_GET["weapon1"])) {
                         $weapon1 = $_GET["weapon1"];
@@ -52,29 +62,6 @@
                         $stmt1->bindParam(':weapon1', $weapon1);
                         $stmt1->execute();
                         $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-                        if($row1 !== false)
-                            echo "<option value=\"{$weapon1}\">{$weapon1}</option>";
-                
-                        $sql = "SELECT WeaponName FROM Weapon";
-                        if ($stmt = $db->prepare($sql)) {
-                            $stmt->execute();
-                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
-                                if ($rows[$count]['WeaponName'] != $weapon1)
-                                    echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
-                        }
-                    } else {
-                        echo "<option value=\"\">Choose a Weapon</option>";
-                        $sql = "SELECT WeaponName FROM Weapon";
-                        if ($stmt = $db->prepare($sql)) {
-                            $stmt->execute();
-                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
-                                echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
-                        }
-                    }
-                ?>
-                </select>
-                <?php
-                    if(isset($row1) && $row1 !== false) {
                         $w_sql = "SELECT Value FROM white_attachment WHERE WeaponName = :weapon1 and AttachmentName like 'Extended%Mag'";
                         $w_stmt = $db->prepare($w_sql);
                         $w_stmt->bindParam(':weapon1', $weapon1);
@@ -106,6 +93,16 @@
             </div>
             <div class="weapon-right">
                 <select id="select2" onchange="callPHP()">
+                    <option value="">Choose a Weapon</option>
+                    <?php
+                        $sql = "SELECT WeaponName FROM Weapon";
+                        if ($stmt = $db->prepare($sql)) {
+                            $stmt->execute();
+                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
+                                echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
+                        }
+                    ?>
+                </select>
                 <?php
                     if (!empty($_GET["weapon2"])) {
                         $weapon2 = $_GET["weapon2"];
@@ -114,29 +111,6 @@
                         $stmt2->bindParam(':weapon2', $weapon2);
                         $stmt2->execute();
                         $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-                        if($row2 !== false)
-                            echo "<option value=\"{$weapon2}\">{$weapon2}</option>";
-                
-                        $sql = "SELECT WeaponName FROM Weapon";
-                        if ($stmt = $db->prepare($sql)) {
-                            $stmt->execute();
-                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
-                                if ($rows[$count]['WeaponName'] != $weapon2)
-                                    echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
-                        }
-                    } else {
-                        echo "<option value=\"\">Choose a Weapon</option>";
-                        $sql = "SELECT WeaponName FROM Weapon";
-                        if ($stmt = $db->prepare($sql)) {
-                            $stmt->execute();
-                            for ($rows = $stmt->fetchAll(), $count = 0; $count < count($rows); $count++)
-                                echo "<option value=\"{$rows[$count]['WeaponName']}\">{$rows[$count]['WeaponName']}</option>";
-                        }
-                    }
-                ?>
-                </select>
-                <?php
-                    if(isset($row2) && $row2 !== false) {
                         $w_sql = "SELECT Value FROM white_attachment WHERE WeaponName = :weapon2 and AttachmentName like 'Extended%Mag'";
                         $w_stmt = $db->prepare($w_sql);
                         $w_stmt->bindParam(':weapon2', $weapon2);
@@ -170,6 +144,15 @@
     </main>
     <script src="../js/scripts.js"></script>
     <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const weapon1 = urlParams.get('weapon1');
+            const weapon2 = urlParams.get('weapon2');
+            if (weapon1 !== null)
+                document.getElementById('select1').value = weapon1;
+            if (weapon2 !== null)
+                document.getElementById('select2').value = weapon2;
+        }
         function callPHP() {
             const weapon1 = document.getElementById("select1").value;
             const weapon2 = document.getElementById("select2").value;
