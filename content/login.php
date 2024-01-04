@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $result=mysqli_query($conn,$sql);
         $good=mysqli_fetch_assoc($result)["good"];
         $_SESSION["level"]= $good;
-        header("location:welcome.php");
+        header("location:weapon_edit.php");
     }else{
             function_alert("帳號或密碼錯誤"); 
         }
@@ -40,5 +40,4 @@ function function_alert($message) {
     </script>"; 
     return false;
 } 
-?>
 ?>

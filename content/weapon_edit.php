@@ -1,5 +1,7 @@
 <?php
 	include("../function/condb.php");
+	session_start();
+	$level=$_SESSION["level"];
 ?>
 <html>
 <head>
@@ -202,7 +204,7 @@
                             <td> <input type = "text" name = "UpdateLegs" value = "<?php echo $rows[$count]['Legs'];?>" class = "mybar"/> </td>
                             <td> <input type = "text" name = "UpdateMagazine" value = "<?php echo $rows[$count]['Magazine'];?>" class = "mybar"/> </td>
                             <td> <input type = "text" name = "UpdateReloadTime" value = "<?php echo $rows[$count]['ReloadTime'];?>" class = "mybar"/> </td>
-                            <td> <img src="get_weapon_image.php?name=<?php echo $rows[$count]['Image'];?>" alt="<?php echo $rows[$count]['WeaponName'];?>"> </td>
+                            <!--<td> <img src="get_weapon_image.php?name=<?php #echo $rows[$count]['Image'];?>" alt="<?php #echo $rows[$count]['WeaponName'];?>"> </td>-->
                             <td> <input type = "submit" name = "Update" value = "更新"/> </td>
                             <td> <input type = "submit" name = "Delete" value = "刪除"/> </td>
                         </tr> 
@@ -236,6 +238,13 @@
                             }
                         }
                     }else if(isset($_POST["Delete"])){
+						if($level==0){
+							?>
+							<script>
+								alert("你不是管理員");
+							</script>
+							<?php
+						}else if($level==1){
                         $WeaponName = $_POST["UpdateWeaponName"];
                         $sql = "DELETE FROM weapon WHERE WeaponName = ?";
                         if($stmt = $db->prepare($sql)){
@@ -245,8 +254,16 @@
                             }else{
                                 #header('Location: weapon_edit.php');
                             }
+						 }
                         }
                     }else if(isset($_POST["Update"])){
+						if($level==0){
+							?>
+							<script>
+								alert("你不是管理員");
+							</script>
+							<?php
+						}else if($level==1){
                         $sql = "UPDATE weapon SET Type = ?, Ammo = ?, Body = ?, Head = ?, Legs = ?, Magazine = ?, ReloadTime = ?, Image = ? WHERE WeaponName = ?";
                         $WeaponName = $_POST["UpdateWeaponName"];
                         $newType = $_POST["UpdateType"];
@@ -270,7 +287,9 @@
                                 #header('Location: weapon_edit.php');
                             }
                         }
+					 }
                     }
+					echo "<a href='logout.php'>登出</a>";
                 ?>
         </div>
 	</div>
