@@ -1,5 +1,6 @@
 main {
     height: 100%;
+    display: flex;
 }
 .steam-widget-wrap {
     width: calc( 100% - 360px);
@@ -9,6 +10,10 @@ main {
     overflow-y: auto;
 }
 @media (max-width: 768px) {
+    main {
+        height: auto;
+        display: block;
+    }
     .steam-widget-wrap, .twitter-widget-wrap {
         width: 100%;
     }

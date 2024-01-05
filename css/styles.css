@@ -43,7 +43,6 @@ main {
     background-color: #DADADA;
     padding-top: 94px;
     box-sizing: border-box;
-    display: flex;
 }
 iframe {
     width: 100%;
@@ -133,8 +132,7 @@ iframe {
         font-size: 100%;
     }
     main {
-        padding-top: 64px;
-        flex-direction: column;
+        padding-top: 70px;
     }
     #menuBtn, #menuUl.straight, #menuSearch.straight {
         display: block;

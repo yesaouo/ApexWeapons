@@ -8,7 +8,7 @@ server with default setting (user 'root' with no password) */
 常量值只能是字符串或數字*/
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'victor920412');
+define('DB_PASSWORD', 'A8913z');
 define('DB_NAME', 'apex_weapons');
  
 /* Attempt to connect to MySQL database */

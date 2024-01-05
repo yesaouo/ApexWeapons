@@ -1,6 +1,6 @@
 <?php
 include("../function/condb.php");
-if (isset($_GET['name'])) {
+if (!empty($_GET['name'])) {
     // 從URL中獲取名稱參數並解碼
     $name = urldecode($_GET['name']);
     
