@@ -120,6 +120,10 @@
     .mybar {
         width:130px;
     }
+
+	.mybarShort{
+		width:80px;
+	}
   </style>
 </head>
 <body>
@@ -166,6 +170,7 @@
                     <th>腿部傷害</th> 
                     <th>彈夾容量</th>
                     <th>裝填時間</th>
+					<th>射速</th>
                     <th>圖片</th>
                     </tr>  
 			    </thead> 
@@ -175,11 +180,12 @@
 					<th> <input type = "text" name = "InsertWeaponName" class = "mybar" required/> </th>
 					<th> <input type = "text" name = "InsertType" class = "mybar" required/> </th>
 					<th> <input type = "text" name = "InsertAmmo" class = "mybar" required/> </th>
-					<th> <input type = "text" name = "InsertBody" class = "mybar" required/> </th>
-					<th> <input type = "text" name = "InsertHead" class = "mybar" required/> </th>
-					<th> <input type = "text" name = "InsertLegs" class = "mybar" required/> </th>
-					<th> <input type = "text" name = "InsertMagazine" class = "mybar" required/> </th>
-					<th> <input type = "text" name = "InsertReloadTime" class = "mybar" required/> </th>
+					<th> <input type = "text" name = "InsertBody" class = "mybarShort" required/> </th>
+					<th> <input type = "text" name = "InsertHead" class = "mybarShort" required/> </th>
+					<th> <input type = "text" name = "InsertLegs" class = "mybarShort" required/> </th>
+					<th> <input type = "text" name = "InsertMagazine" class = "mybarShort" required/> </th>
+					<th> <input type = "text" name = "InsertReloadTime" class = "mybarShort" required/> </th>
+					<th> <input type = "text" name = "InsertFireRate" class = "mybarShort" required/> </th>
 					<th> <input type = "file" name = "InsertImage"> </th>
 					<th> <input type = "submit" name = "Insert" value = "新增" /> </th>
 				</tr>
@@ -198,6 +204,7 @@
                     <th>腿部傷害</th> 
                     <th>彈夾容量</th>
                     <th>裝填時間</th>
+					<th>射速</th>
                     <th>圖片</th>
                 </tr>  
                 </thead> 
@@ -213,11 +220,12 @@
                             <td> <input type = "text" name = "UpdateWeaponName" value = "<?php echo $rows[$count]['WeaponName'];?>" readonly class = "mybar"/> </td>
                             <td> <input type = "text" name = "UpdateType" value = "<?php echo $rows[$count]['Type'];?>" class = "mybar"/> </td>
                             <td> <input type = "text" name = "UpdateAmmo" value = "<?php echo $rows[$count]['Ammo'];?>" class = "mybar"/> </td>
-                            <td> <input type = "text" name = "UpdateBody" value = "<?php echo $rows[$count]['Body'];?>" class = "mybar"/> </td>
-                            <td> <input type = "text" name = "UpdateHead" value = "<?php echo $rows[$count]['Head'];?>" class = "mybar"/> </td>
-                            <td> <input type = "text" name = "UpdateLegs" value = "<?php echo $rows[$count]['Legs'];?>" class = "mybar"/> </td>
-                            <td> <input type = "text" name = "UpdateMagazine" value = "<?php echo $rows[$count]['Magazine'];?>" class = "mybar"/> </td>
-                            <td> <input type = "text" name = "UpdateReloadTime" value = "<?php echo $rows[$count]['ReloadTime'];?>" class = "mybar"/> </td>
+                            <td> <input type = "text" name = "UpdateBody" value = "<?php echo $rows[$count]['Body'];?>" class = "mybarShort"/> </td>
+                            <td> <input type = "text" name = "UpdateHead" value = "<?php echo $rows[$count]['Head'];?>" class = "mybarShort"/> </td>
+                            <td> <input type = "text" name = "UpdateLegs" value = "<?php echo $rows[$count]['Legs'];?>" class = "mybarShort"/> </td>
+                            <td> <input type = "text" name = "UpdateMagazine" value = "<?php echo $rows[$count]['Magazine'];?>" class = "mybarShort"/> </td>
+                            <td> <input type = "text" name = "UpdateReloadTime" value = "<?php echo $rows[$count]['ReloadTime'];?>" class = "mybarShort"/> </td>
+							<td> <input type = "text" name = "UpdateFireRate" value = "<?php echo $rows[$count]['FireRate'];?>" class = "mybarShort"/> </td>
                             <td> <img src = "get_weapon_image.php?name=<?php echo $rows[$count]['WeaponName'];?>" alt = "<?php echo $rows[$count]['WeaponName'];?>" width = 200px height = 150px> </td>
                             <td> <input type = "submit" name = "Update" value = "更新"/> </td>
                             <td> <input type = "submit" name = "Delete" value = "刪除"/> </td>
@@ -240,8 +248,12 @@
                         $InsertLegs = $_POST["InsertLegs"];
                         $InsertMagazine = $_POST["InsertMagazine"];
                         $InsertReloadTime = $_POST["InsertReloadTime"];
+						$InsertFireRate = $_POST["InsertFireRate"];
+
+						/*=======test image insert=======*/
+						$InsertImage = addslashes(file_get_contents($_FILES['InsertImage']['tmp_name']));
                         
-                        #失敗QQ
+                        #失敗
                         /*if(!empty($_FILES["InsertImage"]["name"])){
                             $filename = basename($_FILES["InsertImage"]["name"]);
                             $targetFilePath = 'upload/' . $filename;
@@ -269,12 +281,15 @@
                             echo "Please select a file to upload.";
                         }*/
                         
-                        #$sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, Image) values (?,?,?,?,?,?,?,?,?)";
-                        #Image都先設定成NULL
-                        $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime) values (?,?,?,?,?,?,?,?)";
-                        if($stmt = $db->prepare($sql)){
-                            #$success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertImage));
-                            $success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime));
+						#Image測試插入
+                        $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, FireRate, Image) values (?,?,?,?,?,?,?,?,?,?)";
+                        
+						#Image先設定成NULL
+                        #$sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, FireRate) values (?,?,?,?,?,?,?,?,?)";
+                        
+						if($stmt = $db->prepare($sql)){
+                            $success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertFireRate, $InsertImage));
+                            #$success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertFireRate));
                             if (!$success) {
                                 echo "儲存失敗!".$stmt->errorInfo();
                             }else{
@@ -308,7 +323,7 @@
 							</script>
 							<?php
 						}else if($level==1){
-                        $sql = "UPDATE weapon SET Type = ?, Ammo = ?, Body = ?, Head = ?, Legs = ?, Magazine = ?, ReloadTime = ?, Image = ? WHERE WeaponName = ?";
+                        $sql = "UPDATE weapon SET Type = ?, Ammo = ?, Body = ?, Head = ?, Legs = ?, Magazine = ?, ReloadTime = ?, FireRate = ?, Image = ? WHERE WeaponName = ?";
                         $WeaponName = $_POST["UpdateWeaponName"];
                         $newType = $_POST["UpdateType"];
                         if(isset($_POST["UpdateType"]) && !empty($_POST["UpdateType"])){
@@ -322,9 +337,10 @@
                         $newLegs = $_POST["UpdateLegs"];
                         $newMagazine = $_POST["UpdateMagazine"];
                         $newReloadTime = $_POST["UpdateReloadTime"];
+						$newFireRate = $_POST["UpdateFireRate"];
                         $newImage = NULL;
                         if($stmt = $db->prepare($sql)){
-                            $success = $stmt->execute(array($newType, $newAmmo, $newBody, $newHead, $newLegs, $newMagazine, $newReloadTime, $newImage, $WeaponName));
+                            $success = $stmt->execute(array($newType, $newAmmo, $newBody, $newHead, $newLegs, $newMagazine, $newReloadTime, $newFireRate, $newImage, $WeaponName));
                             if (!$success) {
                                 echo "儲存失敗!".$stmt->errorInfo();
                             }else{
