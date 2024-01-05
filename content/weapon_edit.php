@@ -154,7 +154,7 @@
                     </tr>  
 			    </thead> 
 			    <tbody> 
-				<form action = "weapon_edit.php" method="POST">
+				<form action = "weapon_edit.php" method="POST" enctype="multipart/form-data">
 				<tr>
 					<th> <input type = "text" name = "InsertWeaponName" class = "mybar" required/> </th>
 					<th> <input type = "text" name = "InsertType" class = "mybar" required/> </th>
@@ -164,8 +164,8 @@
 					<th> <input type = "text" name = "InsertLegs" class = "mybar" required/> </th>
 					<th> <input type = "text" name = "InsertMagazine" class = "mybar" required/> </th>
 					<th> <input type = "text" name = "InsertReloadTime" class = "mybar" required/> </th>
-					<th> <input type = "file" name = "InsertImage" accept = "image/*"> </th>
-					<input type="submit" name = "Insert" value = "新增" />
+					<th> <input type = "file" name = "InsertImage"> </th>
+					<th> <input type = "submit" name = "Insert" value = "新增" /> </th>
 				</tr>
 				</form>
                 </tbody>
@@ -202,7 +202,7 @@
                             <td> <input type = "text" name = "UpdateLegs" value = "<?php echo $rows[$count]['Legs'];?>" class = "mybar"/> </td>
                             <td> <input type = "text" name = "UpdateMagazine" value = "<?php echo $rows[$count]['Magazine'];?>" class = "mybar"/> </td>
                             <td> <input type = "text" name = "UpdateReloadTime" value = "<?php echo $rows[$count]['ReloadTime'];?>" class = "mybar"/> </td>
-                            <td> <img src="get_weapon_image.php?name=<?php echo $rows[$count]['Image'];?>" alt="<?php echo $rows[$count]['WeaponName'];?>"> </td>
+                            <td> <img src = "get_weapon_image.php?name=<?php echo $rows[$count]['WeaponName'];?>" alt = "<?php echo $rows[$count]['WeaponName'];?>" width = 200px height = 150px> </td>
                             <td> <input type = "submit" name = "Update" value = "更新"/> </td>
                             <td> <input type = "submit" name = "Delete" value = "刪除"/> </td>
                         </tr> 
@@ -215,7 +215,6 @@
             </table>
 
                 <?php
-                    #$id = ((int)$_POST["id"]);
                     if(isset($_POST["Insert"])){
                         $InsertWeaponName = $_POST["InsertWeaponName"];
                         $InsertType = $_POST["InsertType"];
@@ -225,10 +224,41 @@
                         $InsertLegs = $_POST["InsertLegs"];
                         $InsertMagazine = $_POST["InsertMagazine"];
                         $InsertReloadTime = $_POST["InsertReloadTime"];
-                        $InsertImage = $_POST["InsertImage"];
-                        $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, Image) values (?,?,?,?,?,?,?,?,?)";
+                        
+                        #失敗QQ
+                        /*if(!empty($_FILES["InsertImage"]["name"])){
+                            $filename = basename($_FILES["InsertImage"]["name"]);
+                            $targetFilePath = 'upload/' . $filename;
+                            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+                            $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+                            if(in_array($fileType, $allowTypes)){
+                                if(move_uploaded_file($_FILES["InsertImage"]["tmp_name"], $targetFilePath)){
+                                    $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, Image) values (?,?,?,?,?,?,?,?,?)";
+                                    if($stmt = $db->prepare($sql)){
+                                        $success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $filename));
+                                        if (!$success) {
+                                            echo "儲存失敗!".$stmt->errorInfo();
+                                        }else{
+                                            #header('Location: weapon_edit.php');
+                                        }
+                                    }
+                                }else{
+                                    echo "Sorry, there was an error uploading your file.";
+                                }
+                            }else{
+                                echo "Sorry, only JPG, JPEG, PNG, and GIF files are allowed to upload.";
+                            }
+                        }else{
+                            echo "Please select a file to upload.";
+                        }*/
+                        
+                        #$sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, Image) values (?,?,?,?,?,?,?,?,?)";
+                        #Image都先設定成NULL
+                        $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime) values (?,?,?,?,?,?,?,?)";
                         if($stmt = $db->prepare($sql)){
-                            $success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertImage));
+                            #$success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertImage));
+                            $success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime));
                             if (!$success) {
                                 echo "儲存失敗!".$stmt->errorInfo();
                             }else{
