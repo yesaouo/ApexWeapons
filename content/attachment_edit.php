@@ -12,13 +12,14 @@
 			header('location:weapon.php');
 	}
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="Pragma" Content="No-cache">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>attachments_edit.php</title>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX Weapons-Search</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <style>
 	body {
 		margin: 0px;
 	}
@@ -90,10 +91,8 @@
 	}
 	
 	.content {
-		position: relative;
 		word-wrap: break-word;
 		width: 100%;
-		top: 40px;
 		background-color: #f1f1f1;
 	}
 	
@@ -124,32 +123,36 @@
   </style>
 </head>
 <body>
-	<div class="menu">
-		<table class="menu_css">
-			<tr>
-				<td>
-					<a href="../index.html">Home</a>
-				</td>
-				<td>
-					<a href="Weapon.php">武器</a>
-				</td>
-				<td>
-					<a href="attachment.php">配件</a>
-				</td>
-			</tr>
-		</table>
-		<!--<table class="menu_search">
-			<tr>
-				<td>
-					<form method="post" action="toy.php">
-					Search
-					  <input type="text" id="keyword" name="keyword" value="" placeholder="輸入搜尋關鍵字" />
-					  <input type="submit" value="送出">				
-					</form>
-				</td>
-			</tr>
-		</table>-->
-	</div>
+    <header>
+        <div class="toggle">
+            <div class="left">
+                <a href="../"><img src="img/apex-light-hero-logo.png" alt="Apex Legends"></a>
+            </div>
+            <a href="" class="title-span">Search</a>
+            <div class="right">
+                <div class="search-bar">
+                    <input id="searchBarInput" type="text" placeholder="Search">
+                    <button id="searchBarSearch"><img src="img/search.png" alt="search"></button>
+                </div>
+                <button id="menuBtn"><img src="img/menu-burger.png" alt="menu-btn"></button>
+            </div>
+        </div>
+        
+        <div id="menuSearch">
+            <input id="menuSearchInput" type="text" placeholder="Search">
+            <button id="menuSearchSearch"><img src="img/search.png" alt="search"></button>
+        </div>
+
+        <nav>
+            <ul id="menuUl">
+                <li><a href="attachment.php">Attachments</a></li>
+                <li><a href="weapon.php">Weapons</a></li>
+                <li><a href="weapon_compare.php">Comparison</a></li>
+                <li><a href="damage_rank.php">Damage Rank</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
 	<div class="content">
 		<div class="inner_content">
         <form action = "attachment_edit.php" method = "POST">
@@ -584,5 +587,7 @@
         ?>
         </div>
 	</div>
+    </main>
+    <script src="../js/scripts.js"></script>
 </body>
 </html>
