@@ -10,14 +10,10 @@ menuBtn.onclick = function () {
     }
 }
 searchBarSearch.onclick = function () {
-    if (searchBarInput.value)
-        window.location.href = window.location.origin + '/ApexWeapons/content/search.php?search=' + searchBarInput.value;
-    else
-        window.location.href = window.location.origin + '/ApexWeapons/content/weapon.php';
+    let searchValue = searchBarInput.value || '';
+    window.location.href = `${window.location.origin}/ApexWeapons/content/search.php?search=${searchValue}`;
 }
 menuSearchSearch.onclick = function () {
-    if (menuSearchInput.value)
-        window.location.href = window.location.origin + '/ApexWeapons/content/search.php?search=' + menuSearchInput.value;
-    else
-        window.location.href = window.location.origin + '/ApexWeapons/content/weapon.php';
+    let searchValue = menuSearchInput.value || '';
+    window.location.href = `${window.location.origin}/ApexWeapons/content/search.php?search=${searchValue}`;
 }
