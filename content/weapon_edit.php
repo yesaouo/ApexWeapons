@@ -1,7 +1,17 @@
 <?php
 	include("../function/condb.php");
 	session_start();
-	$level=$_SESSION["level"];
+	if($_SESSION["loggedin"]==true){
+		$level=$_SESSION["level"];
+	}else{
+		?>
+		<script>
+			alert("你已登出");
+		</script>
+		<?php
+			header('location:weapon.php');
+	}
+
 ?>
 <html>
 <head>

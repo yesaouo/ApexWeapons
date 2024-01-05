@@ -1,5 +1,16 @@
 <?php
 	include("../function/condb.php");
+    session_start();
+	if($_SESSION["loggedin"]==true){
+		$level=$_SESSION["level"];
+	}else{
+		?>
+		<script>
+			alert("你已登出");
+		</script>
+		<?php
+			header('location:weapon.php');
+	}
 ?>
 <html>
 <head>
@@ -569,6 +580,7 @@
                     }
                 }
             }
+            echo "<a href='logout.php'>登出</a>";
         ?>
         </div>
 	</div>

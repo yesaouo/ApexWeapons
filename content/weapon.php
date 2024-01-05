@@ -1,4 +1,5 @@
 <html>
+<center>
 <?php    
 header('Content-Type: text/html; charset=UTF-8');
 include("../function/condb.php");
@@ -33,10 +34,9 @@ for($i=0; $i<count($result); $i++){
         echo "<td>".$result[$i]['ReloadTime']."</td>";
         //echo "<td>".$result[$i]['Image']."</td>";
         echo "</tr>"; 
-    }
-    ?>
-<?php    
+    }   
   echo "</table>"; 
 ?>
   <a href="index.php">編輯</a>
+  </center>
 </html>

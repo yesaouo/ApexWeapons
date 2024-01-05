@@ -52,7 +52,7 @@
             }
           }
         }
-    echo "</table>";
+        echo "</table>";
         if(isset($_POST['special'])){
             echo "<hr>";
             echo "<table border ='1'>
@@ -76,7 +76,9 @@
                 echo "</tr>"; 
             }
         }
+        echo "</table>";
     ?>
+    <a href="index.php">編輯</a>
 </body>
 </center>
 </html>
