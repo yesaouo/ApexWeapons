@@ -26,8 +26,7 @@
         <tr>
         <th>配件名稱</th>
         <th>武器名稱</th>
-        <th>子彈數量</th>
-        <th>傷害影響</th>
+        <th>配件數值</th>
         </tr>";
         //$query = ("select * from weapon");
         for($i=0;$i<count($n);$i++){
@@ -49,7 +48,6 @@
                 }
                 echo "<td>".$result[$j]['WeaponName']."</td>";
                 echo "<td>".$result[$j]['Value']."</td>";
-                echo "<td>".$result[$j]['DamageInflu']."</td>";
                 echo "</tr>"; 
             }
           }

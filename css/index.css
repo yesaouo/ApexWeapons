@@ -1,3 +1,6 @@
+main {
+    height: 100%;
+}
 .steam-widget-wrap {
     width: calc( 100% - 360px);
 }
