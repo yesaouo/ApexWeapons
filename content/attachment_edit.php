@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX Weapons-Search</title>
+    <title>APEX Weapons-Edit</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
     <style>
 	body {
@@ -128,7 +128,7 @@
             <div class="left">
                 <a href="../"><img src="img/apex-light-hero-logo.png" alt="Apex Legends"></a>
             </div>
-            <a href="" class="title-span">Search</a>
+            <a href="" class="title-span">Edit</a>
             <div class="right">
                 <div class="search-bar">
                     <input id="searchBarInput" type="text" placeholder="Search">
