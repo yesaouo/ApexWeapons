@@ -84,6 +84,12 @@
                             <tr><td><?php echo $row1['Type'];?></td></tr>
                             <tr><td><?php echo $row1['Ammo'];?></td></tr>
                             <tr><td><?php echo "{$row1['Head']}/{$row1['Body']}/{$row1['Legs']}";?></td></tr>
+                            <tr><td><?php 
+                                $headDPS = $row1['Head'] * $row1['FireRate'];
+                                $bodyDPS = $row1['Body'] * $row1['FireRate'];
+                                $legsDPS = $row1['Legs'] * $row1['FireRate'];
+                                echo "{$headDPS}/{$bodyDPS}/{$legsDPS}";
+                            ?></td></tr>
                             <tr><td><?php echo "{$row1['Magazine']}/{$w_row['Value']}/{$b_row['Value']}/{$p_row['Value']}";?></td></tr>
                             <tr><td><?php echo round($row1['ReloadTime']*1, 2) . "/" . round($row1['ReloadTime']*0.967, 2) . "/" . round($row1['ReloadTime']*0.937, 2) . "/" . round($row1['ReloadTime']*0.9, 2);?></td></tr>
                         </table>
@@ -133,6 +139,12 @@
                             <tr><td><?php echo $row2['Type'];?></td></tr>
                             <tr><td><?php echo $row2['Ammo'];?></td></tr>
                             <tr><td><?php echo "{$row2['Head']}/{$row2['Body']}/{$row2['Legs']}";?></td></tr>
+                            <tr><td><?php 
+                                $headDPS = $row2['Head'] * $row2['FireRate'];
+                                $bodyDPS = $row2['Body'] * $row2['FireRate'];
+                                $legsDPS = $row2['Legs'] * $row2['FireRate'];
+                                echo "{$headDPS}/{$bodyDPS}/{$legsDPS}";
+                            ?></td></tr>
                             <tr><td><?php echo "{$row2['Magazine']}/{$w_row['Value']}/{$b_row['Value']}/{$p_row['Value']}";?></td></tr>
                             <tr><td><?php echo round($row2['ReloadTime']*1, 2) . "/" . round($row2['ReloadTime']*0.967, 2) . "/" . round($row2['ReloadTime']*0.937, 2) . "/" . round($row2['ReloadTime']*0.9, 2);?></td></tr>
                         </table>

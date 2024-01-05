@@ -9,3 +9,11 @@ menuBtn.onclick = function () {
         menuSearch.classList.add('straight');
     }
 }
+searchBarSearch.onclick = function () {
+    let searchValue = searchBarInput.value || '';
+    window.location.href = `${window.location.origin}/ApexWeapons/content/search.php?search=${searchValue}`;
+}
+menuSearchSearch.onclick = function () {
+    let searchValue = menuSearchInput.value || '';
+    window.location.href = `${window.location.origin}/ApexWeapons/content/search.php?search=${searchValue}`;
+}
