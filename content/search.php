@@ -95,6 +95,12 @@
                     <tr><td class="left">Type:</td><td><?php echo $row['Type'];?></td></tr>
                     <tr><td class="left">Ammo:</td><td><?php echo $row['Ammo'];?></td></tr>
                     <tr><td class="left">Damage:</td><td><?php echo "{$row['Head']}/{$row['Body']}/{$row['Legs']}";?></td></tr>
+                    <tr><td class="left">DPS:</td><td><?php 
+                        $headDPS = $row['Head'] * $row['FireRate'];
+                        $bodyDPS = $row['Body'] * $row['FireRate'];
+                        $legsDPS = $row['Legs'] * $row['FireRate'];
+                        echo "{$headDPS}/{$bodyDPS}/{$legsDPS}";
+                    ?></td></tr>
                     <tr><td class="left">Magazine:</td><td><?php echo "{$row['Magazine']}/{$w_row['Value']}/{$b_row['Value']}/{$p_row['Value']}";?></td></tr>
                     <tr><td class="left">Reload Time:</td><td><?php echo round($row['ReloadTime']*1, 2) . "/" . round($row['ReloadTime']*0.967, 2) . "/" . round($row['ReloadTime']*0.937, 2) . "/" . round($row['ReloadTime']*0.9, 2);?></td></tr>
                 </table>
