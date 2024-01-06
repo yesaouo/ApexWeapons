@@ -1,0 +1,27 @@
+main {
+    display: flex;
+    flex-direction: column;
+}
+.button {
+    display: inline-block;
+    padding: 1px 10px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+.button.green {
+    background-color: #4CAF50;
+}
+.button.blue {
+    background-color: #007BFF;
+}
+.button.green:hover {
+    background-color: #45a049;
+}
+.button.blue:hover {
+    background-color: #0056b3;
+}

@@ -93,7 +93,6 @@
 	.content {
 		word-wrap: break-word;
 		width: 100%;
-		background-color: #f1f1f1;
 	}
 	
 	.inner_content {
@@ -158,8 +157,7 @@
     </header>
     <main>
 	<div class="content">
-		<div class="inner_content">
-			<table class="table">
+    <table class="table">
 			    <thead>
                     <tr> 
                     <th>武器名稱</th> 
@@ -350,7 +348,6 @@
                     }
 					echo "<a href='logout.php'>登出</a>";
                 ?>
-        </div>
 	</div>
     </main>
     <script src="../js/scripts.js"></script>

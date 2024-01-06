@@ -3,9 +3,16 @@
 session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: edit.php");
-    exit;  //記得要跳出來，不然會重複轉址過多次
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]===true) {
+    $previous_page = $_SERVER['HTTP_REFERER'];
+    if (strpos($previous_page, 'attachment.php') !== false) {
+        header('Location: attachment_edit.php');
+    } elseif (strpos($previous_page, 'weapon.php') !== false) {
+        header('Location: weapon_edit.php');
+    } else {
+        header('Location: ../index.html');
+    }
+    exit;
 }
 ?>
 <html>
@@ -41,7 +48,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
           <form action="login.php" method="post">
             <input type="text" id="username" name="username" placeholder="帳號" required>
             <div class="tab"></div>
-            <input type="text" id="password" name="password" placeholder="密碼" required>
+            <input type="password" id="password" name="password" placeholder="密碼" required>
             <div class="tab"></div>
             <input type="submit" value="登入" class="submit" name="submit">
           </form>  

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APEX Weapons-Weapons</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
     <header>
@@ -73,7 +74,7 @@ for($i=0; $i<count($result); $i++){
     }   
   echo "</table>"; 
 ?>
-    <a href="index.php">編輯</a>
+        <a class="button blue" href="index.php">編輯</a>
     </main>
     <script src="../js/scripts.js"></script>
 </body>

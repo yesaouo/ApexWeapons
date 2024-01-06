@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APEX Weapons-Attachments</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
     <header>
@@ -41,21 +42,22 @@
     </header>
     <main>
     <form action = "attachment.php" method="post">
-    <h3>Attachments</h3>
     <input type="checkbox" name="choose[]" value="white_attachment"><label>白色</label>
     <input type="checkbox" name="choose[]" value="blue_attachment"><label>藍色</label>
     <input type="checkbox" name="choose[]" value="purple_attachment"><label>紫色</label>
     <input type="checkbox" name="choose[]" value="gold_attachment"><label>金色</label>
     <input type="checkbox" name="special" value="hopup"><label>特殊配件</label>
-    <input type = "submit" value="查詢">
+    <input class="button green" type="submit" value="查詢">
+    <a class="button blue" href="index.php">編輯</a>
     </form>
     <?php
         include("../function/condb.php");
         if(isset($_POST['choose'])){
         $n=$_POST['choose'];
         header('Content-Type: text/html; charset=UTF-8');
-        echo "<table border ='1'>
+        echo "<br><table border ='1'>
         <tr>
+        <th>等級</th>
         <th>配件名稱</th>
         <th>武器名稱</th>
         <th>配件數值</th>
@@ -70,13 +72,13 @@
             for($j=0; $j<count($result); $j++){
                 echo "<tr>";
                 if($re=="white_attachment"){
-                    echo "<td>white ".$result[$j]['AttachmentName']."</td>";
+                    echo "<td>白</td><td>".$result[$j]['AttachmentName']."</td>";
                 }else if($re=="blue_attachment"){
-                    echo "<td>blue ".$result[$j]['AttachmentName']."</td>";
+                    echo "<td>藍</td><td>".$result[$j]['AttachmentName']."</td>";
                 }else if($re=="purple_attachment"){
-                    echo "<td>purple ".$result[$j]['AttachmentName']."</td>";
+                    echo "<td>紫</td><td>".$result[$j]['AttachmentName']."</td>";
                 }else if($re=="gold_attachment"){
-                    echo "<td>gold ".$result[$j]['AttachmentName']."</td>";
+                    echo "<td>金</td><td>".$result[$j]['AttachmentName']."</td>";
                 }
                 echo "<td>".$result[$j]['WeaponName']."</td>";
                 echo "<td>".$result[$j]['Value']."</td>";
@@ -86,8 +88,7 @@
         }
         echo "</table>";
         if(isset($_POST['special'])){
-            echo "<hr>";
-            echo "<table border ='1'>
+            echo "<br><table border ='1'>
             <tr>
             <th>特殊配件</th>
             <th>武器名稱</th>
@@ -110,7 +111,6 @@
         }
         echo "</table>";
     ?>
-    <a href="index.php">編輯</a>
     </main>
     <script src="../js/scripts.js"></script>
 </body>

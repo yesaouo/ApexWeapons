@@ -93,7 +93,6 @@
 	.content {
 		word-wrap: break-word;
 		width: 100%;
-		background-color: #f1f1f1;
 	}
 	
 	.inner_content {
@@ -154,9 +153,7 @@
     </header>
     <main>
 	<div class="content">
-		<div class="inner_content">
         <form action = "attachment_edit.php" method = "POST">
-        <h3>Attachments</h3>
         <input type= "radio" name = "choose" value = "white_attachment"><label>白色</label>
         <input type= "radio" name = "choose" value = "blue_attachment"><label>藍色</label>
         <input type= "radio" name = "choose" value = "purple_attachment"><label>紫色</label>
@@ -585,7 +582,6 @@
             }
             echo "<a href='logout.php'>登出</a>";
         ?>
-        </div>
 	</div>
     </main>
     <script src="../js/scripts.js"></script>
