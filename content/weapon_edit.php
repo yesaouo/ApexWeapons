@@ -205,7 +205,7 @@
                     <th>彈夾容量</th>
                     <th>裝填時間</th>
 					<th>射速</th>
-                    <th>圖片</th>
+                    <!-- <th>圖片</th> -->
                 </tr>  
                 </thead> 
                     <?php
@@ -226,7 +226,7 @@
                             <td> <input type = "text" name = "UpdateMagazine" value = "<?php echo $rows[$count]['Magazine'];?>" class = "mybarShort"/> </td>
                             <td> <input type = "text" name = "UpdateReloadTime" value = "<?php echo $rows[$count]['ReloadTime'];?>" class = "mybarShort"/> </td>
 							<td> <input type = "text" name = "UpdateFireRate" value = "<?php echo $rows[$count]['FireRate'];?>" class = "mybarShort"/> </td>
-                            <td> <img src = "get_weapon_image.php?name=<?php echo $rows[$count]['WeaponName'];?>" alt = "<?php echo $rows[$count]['WeaponName'];?>" width = 200px height = 150px> </td>
+                            <!-- <td> <img src = "get_weapon_image.php?name=<?php# echo $rows[$count]['WeaponName'];?>" alt = "<?php# echo $rows[$count]['WeaponName'];?>" width = 200px height = 150px> </td> -->
                             <td> <input type = "submit" name = "Update" value = "更新"/> </td>
                             <td> <input type = "submit" name = "Delete" value = "刪除"/> </td>
                         </tr> 
@@ -250,8 +250,8 @@
                         $InsertReloadTime = $_POST["InsertReloadTime"];
 						$InsertFireRate = $_POST["InsertFireRate"];
 
-						/*=======test image insert=======*/
-						$InsertImage = addslashes(file_get_contents($_FILES['InsertImage']['tmp_name']));
+						/*=======failed as well=======*/
+						#$InsertImage = addslashes(file_get_contents($_FILES['InsertImage']['tmp_name']));
                         
                         #失敗
                         /*if(!empty($_FILES["InsertImage"]["name"])){
@@ -282,14 +282,14 @@
                         }*/
                         
 						#Image測試插入
-                        $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, FireRate, Image) values (?,?,?,?,?,?,?,?,?,?)";
+                        #$sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, FireRate, Image) values (?,?,?,?,?,?,?,?,?,?)";
                         
 						#Image先設定成NULL
-                        #$sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, FireRate) values (?,?,?,?,?,?,?,?,?)";
+                        $sql = "INSERT INTO weapon (WeaponName, Type, Ammo, Body, Head, Legs, Magazine, ReloadTime, FireRate) values (?,?,?,?,?,?,?,?,?)";
                         
 						if($stmt = $db->prepare($sql)){
-                            $success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertFireRate, $InsertImage));
-                            #$success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertFireRate));
+                            #$success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertFireRate, $InsertImage));
+                            $success = $stmt->execute(array($InsertWeaponName, $InsertType, $InsertAmmo, $InsertBody, $InsertHead, $InsertLegs, $InsertMagazine, $InsertReloadTime, $InsertFireRate));
                             if (!$success) {
                                 echo "儲存失敗!".$stmt->errorInfo();
                             }else{
@@ -323,7 +323,7 @@
 							</script>
 							<?php
 						}else if($level==1){
-                        $sql = "UPDATE weapon SET Type = ?, Ammo = ?, Body = ?, Head = ?, Legs = ?, Magazine = ?, ReloadTime = ?, FireRate = ?, Image = ? WHERE WeaponName = ?";
+                        $sql = "UPDATE weapon SET Type = ?, Ammo = ?, Body = ?, Head = ?, Legs = ?, Magazine = ?, ReloadTime = ?, FireRate = ? WHERE WeaponName = ?";
                         $WeaponName = $_POST["UpdateWeaponName"];
                         $newType = $_POST["UpdateType"];
                         if(isset($_POST["UpdateType"]) && !empty($_POST["UpdateType"])){
@@ -338,9 +338,8 @@
                         $newMagazine = $_POST["UpdateMagazine"];
                         $newReloadTime = $_POST["UpdateReloadTime"];
 						$newFireRate = $_POST["UpdateFireRate"];
-                        $newImage = NULL;
                         if($stmt = $db->prepare($sql)){
-                            $success = $stmt->execute(array($newType, $newAmmo, $newBody, $newHead, $newLegs, $newMagazine, $newReloadTime, $newFireRate, $newImage, $WeaponName));
+                            $success = $stmt->execute(array($newType, $newAmmo, $newBody, $newHead, $newLegs, $newMagazine, $newReloadTime, $newFireRate, $WeaponName));
                             if (!$success) {
                                 echo "儲存失敗!".$stmt->errorInfo();
                             }else{
